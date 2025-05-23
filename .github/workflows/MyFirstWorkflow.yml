@@ -6,17 +6,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  MyFirstJob:
+  job1:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello world"
-      
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
-
-      - name: List files in the repo
-        run: |        
-          echo "The repository ${{ github.repository }} contains the following
-          ➥files:"
-          tree
+      - run: "echo Job: ${{ github.job }}"
+  job2: 
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - run: "echo Job: ${{ github.job }}"
+  job3:
+    runs-on: ubuntu-latest
+    needs: job2
+    steps:
+      - run: "echo Job: ${{ github.job }}"
   
